@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Form</title>
+    <!-- Include Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-3">Chat</h1>
+
+    <ul class="list">
+      {% for message in chat.messages.all %}
+        <li class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img class="is-rounded" src="{{ message.created_by.avatar_url }}" alt="{{ message.created_by.username }}">
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p class="subtitle is-5">
+                <strong>{{ message.created_by.username }}</strong>
+                <span class="is-size-7">&nbsp;-&nbsp;{{ message.created_at|date:"F d, Y, H:i" }}</span>
+              </p>
+              <p>{{ message.content }}</p>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <hr>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="field">
+        <label for="content" class="label">Message</label>
+        <div class="control">
+          {{ form.content }}
+          <p class="help">{{ form.content.errors }}</p>
+        </div>
+      </div>
+      <div class="field">
+        <button type="submit" class="button is-primary">Send Message</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+</body>
+</html>

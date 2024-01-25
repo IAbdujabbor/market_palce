@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<!-- Your existing HTML content -->
+<!-- Add Product Form -->
+<section class="section">
+  <div class="container">
+    <h1 class="title is-3" style="font-family: Berlin Sans FB; text-align: center;">Edit Product</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- Product Name -->
+      <div class="field">
+        <label class="label">Product Name</label>
+        <div class="control">
+          {{ form.name }}
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="field">
+        <label class="label">Price</label>
+        <div class="control">
+          {{ form.price }}
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+          {{ form.description }}
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="field">
+        <label class="label">Category</label>
+        <div class="select is-primary">
+          {{ form.category }}
+        </div>
+      </div>
+
+      <!-- Product Image -->
+      <div class="field">
+        <label class="label">Product Image</label>
+        <div class="control">
+          {{ form.image }}
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="field">
+        <div class="control">
+          <button class="button is-primary" type="submit">Edit Product</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

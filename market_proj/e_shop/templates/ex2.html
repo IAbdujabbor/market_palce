@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+     <title>{% block title %}Marketplace{% endblock %}</title>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <!-- ... Navbar content ... -->
+    </nav>
+
+    <!-- Product Cards -->
+    <section class="section">
+        <div class="container">
+            <div class="columns is-multiline">
+                {% for item in items %}
+                    <div class="column is-4">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <p class="title is-4">{{ item.name }}</p>
+                                <p class="subtitle is-6">${{ item.price }}</p>
+                                <button class="button is-primary">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Navbar Products Card -->
+    <section class="section">
+        <div class="container">
+            <!-- ... Add your content for the navbar products card ... -->
+        </div>
+    </section>
+<!-- Add this at the bottom of your template -->
+<div class="pagination is-centered" role="navigation" aria-label="pagination">
+  <ul class="pagination-list">
+    {% if items.has_previous %}
+      <li>
+        <a class="pagination-link" href="?page=1" aria-label="Goto page 1">First</a>
+      </li>
+      <li>
+        <a class="pagination-link" href="?page={{ items.previous_page_number }}" aria-label="Goto previous page">{{ items.previous_page_number }}</a>
+      </li>
+    {% endif %}
+
+    <li>
+      <span class="pagination-ellipsis">&hellip;</span>
+    </li>
+
+    {% for i in items.paginator.page_range %}
+      <li>
+        <a class="pagination-link{% if items.number == i %} is-current{% endif %}" href="?page={{ i }}" aria-label="Goto page {{ i }}">{{ i }}</a>
+      </li>
+    {% endfor %}
+
+    <li>
+      <span class="pagination-ellipsis">&hellip;</span>
+    </li>
+
+    {% if items.has_next %}
+      <li>
+        <a class="pagination-link" href="?page={{ items.next_page_number }}" aria-label="Goto next page">{{ items.next_page_number }}</a>
+      </li>
+      <li>
+        <a class="pagination-link" href="?page={{ items.paginator.num_pages }}" aria-label="Goto last page">Last</a>
+      </li>
+    {% endif %}
+  </ul>
+</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <!-- Footer Cards -->
+            <div class="columns is-multiline">
+                <!-- Devices Card -->
+                <div class="column is-6-mobile is-3-tablet footer-card">
+                    <div class="card">
+                        <div class="card-content footer-card-content">
+                            <p class="title is-5">Devices</p>
+                            <p class="subtitle is-6">Available: <strong>120</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Furniture Card -->
+                <div class="column is-6-mobile is-3-tablet footer-card">
+                    <div class="card">
+                        <div class="card-content footer-card-content">
+                            <p class="title is-5">Furniture</p>
+                            <p class="subtitle is-6">Available: <strong>80</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- General Footer Text -->
+            <p>
+                <strong>Marketplace</strong> by Your Name. The source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

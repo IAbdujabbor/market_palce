@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+
+{% block title %}{{ item.name }} Detail{% endblock %}
+
+{% block content %}
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <!-- Product Image Column -->
+        <div class="column is-one-third">
+          <figure class="image is-4by3">
+            <img src="{{ item.image.url }}" alt="{{ item.name }}">
+          </figure>
+        </div>
+        <!-- Product Details Column -->
+        <div class="column">
+          <h1 class="title is-2">{{ item.name }}</h1>
+          <p class="subtitle is-4">${{ item.price }}</p>
+          <p>{{ item.description }}</p>
+          <!-- Add other item details as needed -->
+          <a class="button is-primary " href="{%url 'chatMessage' item.id%}">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

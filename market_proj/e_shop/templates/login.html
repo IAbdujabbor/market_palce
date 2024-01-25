@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <div class="container">
+      <div class="signup-container">
+          <h1 class="signup-title">Login</h1>
+
+          <!-- Signup Form -->
+          <form method="post" action=".">
+              {% csrf_token %}
+              <label class="label"> Username
+              {{ form.username }}</label>
+
+
+
+
+
+              <label class="label"> password
+              {{ form.password }}</label>
+
+
+
+
+
+
+
+
+
+               <p style="text-align: center">
+              <button class="button is-info is-rounded" type="submit">Login</button>
+               </p>
+          </form>
+          <p class="has-text-centered">
+              If not registered? <a href="{% url 'signup' %}">Sign UP</a>
+          </p>
+      </div>
+  </div>
+{% if request.user.is_athenticated %}
+<p>
+    you already regiestereded
+</p>
+
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+
+  <!-- Navbar -->
+{% block content %}
+
+  <!-- Chat Container -->
+  <section class="section">
+    <div class="container">
+     {% for message in conversation1.messages.all %}
+
+      <div class="box chat-messages" id="chatMessages">
+        <!-- Display messages from the conversation -->
+
+          <div class="message {% if message.created_by == request.user %}user1-message{% else %}user2-message{% endif %}">
+            <div class="message-body">
+              {{ message.created_by.username }}: {{ message.content }}
+            </div>
+          </div>
+
+      </div>
+    {% endfor %}
+
+
+
+
+
+
+
+
+
+      <!-- Input Form -->
+      <form method="post" action="">
+        {% csrf_token %}
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            {{ forms.content }}
+          </div>
+          <div class="control">
+            <button class="button is-primary" type="submit">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
+
+ {% for message in conversation1.messages.all %}
+
+        <!-- Display messages from the conversation -->
+     {% if message.created_by == request.user %}user1-message{% else %}user2-message{% endif %}
+<p>
+              {{ message.created_by.username }}: {{ message.content }}
+</p>
+
+
+    {% endfor %}
+{% endblock %}

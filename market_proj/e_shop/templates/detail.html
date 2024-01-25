@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% block content %}
+  <!-- Navbar -->
+
+
+  <!-- Conversation Detail Container -->
+  <section class="section">
+    <div class="container">
+      <h1 class="title" style="font-family: Berlin Sans FB; text-align: center">Conversation Detail</h1>
+
+      <!-- Conversation Messages -->
+      <ul class="message-list" style="font-family: Bahnschrift;">
+        {% for message in conversation.messages.all %}
+          <li class="message-item">
+            <strong style="font-family: 'Berlin Sans FB'; font-size: 20px">{{ message.created_by.username }}</strong>
+            <p class="message-content">{{ message.content }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <!-- Message Form -->
+       <form method="post" action="">
+        {% csrf_token %}
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            {{ form.content }}
+          </div>
+          <div class="control">
+            <button class="button is-primary" type="submit">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'main.html'%}
+{% block content %}
+
+  <div class="container">
+      <div class="signup-container">
+          <h1 class="signup-title" style="font-family: Berlin Sans FB;">Sign Up</h1>
+
+          <!-- Signup Form -->
+          <form method="post" action=".">
+              {% csrf_token %}
+              <label class="label"> Username
+              {{ form.username }}</label>
+
+
+              <label class="label"> Email
+              {{ form.email }}</label>
+
+
+              <label class="label"> password
+              {{ form.password1 }}</label>
+
+              <label class="label"> Verify Password
+              {{ form.password2 }}</label>
+
+
+
+
+
+
+
+               <p style="text-align: center">
+              <button class="button is-info is-rounded" type="submit">Sighn Up</button>
+               </p>
+          </form>
+          <p class="has-text-centered">
+              Already have an account? <a href="{% url 'login' %}">Log in</a>
+          </p>
+      </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+{% block content %}
+<br >
+<section class="section has-text-white has-background-grey-light has-text-centered is-family-monospace">
+    <div class="container">
+        <h2 class="title has-text-white" style="font-family: Berlin Sans FB;">Your Products</h2>
+        <ul class="columns is-multiline">
+            {% for product in user_products %}
+                <li class="column is-one-third">
+                    <div class="card has-background-danger-light"> <!-- Add has-background-primary here -->
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <p class="title">{{ product.name }}</p>
+                            <p class="subtitle">{{ product.price }} $</p>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="{% url 'edit_item' product.id %}" class="card-footer-item has-text-white has-background-primary">Edit</a>
+                            <a  href="{% url 'delete_item' product.id %}"  class="card-footer-item has-text-white has-background-danger">Delete</a>
+                        </footer>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+</body>
+</html>

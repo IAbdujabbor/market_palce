@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <title>Marketplace</title>
+
+
+    {% block head %}   {% endblock %}
+ <style>
+
+      .chat-messages {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .user1-message {
+      text-align: left;
+      background-color: #f0f0f0; /* Light background color for user1 */
+    }
+
+    .user2-message {
+      text-align: right;
+      background-color: #4caf50; /* Green background color for user2 */
+      color: #fff; /* White text for better contrast */
+    }
+        .message-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .message-item {
+      border-bottom: 1px solid #ddd;
+      padding: 15px;
+    }
+
+    .message-item:last-child {
+      border-bottom: none; /* Remove border for the last message */
+    }
+
+    .message-content {
+      margin-top: 5px;
+    }
+
+    .message-form {
+      margin-top: 20px;
+    }
+
+    .signup-container {
+      max-width: 400px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .signup-title {
+      text-align: center;
+      color: #3273dc;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .signup-button {
+      margin-top: 20px;
+    }
+
+         .conversation-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .conversation-item {
+      border-bottom: 1px solid #ddd;
+      padding: 15px;
+    }
+
+    .conversation-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .conversation-title {
+      font-weight: bold;
+    }
+
+     .conversation-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .conversation-item {
+      border-bottom: 1px solid #ddd;
+      padding: 15px;
+    }
+
+    .conversation-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .conversation-title {
+      font-weight: bold;
+    }
+
+a,label{
+    font-family: "Berlin Sans FB";
+}
+  input{
+      font-family: monospace;
+  }
+     p{
+         font-family: Bahnschrift;
+     }
+
+     button{font-family: monospace;}
+        /* Add your custom styles here */
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-in-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+{% block body %} {% endblock %}
+  <!-- Header -->
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+
+
+    <div class="navbar-brand">
+
+    {% if user.is_authenticated %}
+         <a class="navbar-item" href="{% url  'main' %}">Welcome {{ user.username }}</a>
+
+        {% else %}
+           <a class="navbar-item" href="{% url  'main' %}">
+        Marketplace
+    </a>
+    {% endif %}
+</div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="{% url 'main' %}">Home</a>
+           {% if request.user.is_authenticated %}
+        <a class="navbar-item" href="{% url 'dashbord' %}">MyProducts</a>
+                <a class="navbar-item" href="{%  url 'create_product' %}">AddProducts</a>
+      {% endif %}
+            <!-- Categories -->
+            <div class="navbar-item has-dropdown is-hoverable">
+
+                <a class="navbar-link">
+                  Categories
+                </a>
+                <div class="navbar-dropdown">
+                       {% for cat in  categories %}
+                  <a class="navbar-item" href=" {% url 'category_items'  category_id=cat.id %}">
+                  {{ cat.name }}
+                  </a>
+               
+                  <!-- Add more categories as needed -->
+                    {% endfor %}
+                </div>
+              </div>
+
+
+       <!-- Search Bar -->
+<form method="GET" action="{% url 'item_list' %}">
+    <div class="navbar-item field has-addons">
+        <p class="control">
+            <label>
+                <input class="input" type="text" name="q" placeholder="Search products">
+            </label>
+        </p>
+        <p class="control">
+            <button type="submit" class="button is-info">
+                Search
+            </button>
+        </p>
+    </div>
+</form>
+</div>
+               <div class="navbar-item">
+
+              {% if request.user.is_authenticated %}
+                     <a class="button is-dark is-outlined mr-4" href="{% url 'inbox' %}">
+                       <strong>Inbox</strong>
+            </a>
+                 <a class="navbar-item button is-primary mr-2" href="{% url 'logout' %}">
+                       <strong>Log out</strong>
+            </a>
+          
+
+
+              {% else %}
+              <a class=" button is-primary mr-2" href="{% url 'signup' %}">
+                       <strong>Sign up</strong>
+            </a>
+              {% endif %}
+
+            <a class="button is-danger is-outlined" href="{% url 'login' %}">
+                <strong>Log in</strong>
+            </a>
+          </div>
+          </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  </nav>
+
+  {% block content %}{% endblock %}
+
+
+<!-- Product Cards -->
+<section class="section">
+    <div class="container">
+        <div class="columns is-multiline">
+            {% for item in items %}
+                <div class="column is-4 animate-slide-up">
+                    <div class="card animate-fade-in">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <p class="title is-4">{{ item.name }}</p>
+                            <p class="subtitle is-6">${{ item.price }}</p>
+                            <a href="{% url 'item_detail' item.id %}">
+                                <button class="button is-primary">See Detail</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+  <footer class="footer">
+
+      <!-- Footer Cards -->
+<div class="columns is-multiline">
+    {% for category, count in category_counts.items %}
+        <div class="column is-6-mobile is-3-tablet footer-card">
+            <div class="card">
+                <div class="card-content footer-card-content">
+                    <p class="title is-5">{{ category }}</p>
+                    <p class="subtitle is-6">Available: <strong>{{ count }}</strong></p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+        </div>
+      </div>
+
+      <!-- General Footer Text -->
+      <p>
+        <strong>Marketplace</strong> by Abdujabbor. The source code is licensed
+        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+      </p>
+
+  </footer>
+
+</body>
+</html>

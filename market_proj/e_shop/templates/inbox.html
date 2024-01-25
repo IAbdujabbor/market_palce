@@ -1,0 +1,48 @@
+{% extends 'main.html' %}
+
+
+<body>
+{% block content %}
+
+  <!-- Navbar -->
+
+
+  <!-- Inbox Container -->
+  <section class="section">
+    <div class="container">
+      <h1 class="title" style="font-family: Berlin Sans FB;text-align: center;">Inbox</h1>
+
+
+      <!-- Conversation List -->
+      <ul class="conversation-list">
+        {% for conversation in conversations %}
+
+            {% for member in conversation.members.all %}
+                        {% if member != request.user %}
+              <li class="conversation-item">
+                <a href="{% url 'detail' conversation.id %}" class="conversation-title">
+                  Conversation with {{ member.username }}
+                </a>
+                <p>{{ conversation.item.name }}</p>
+              <p>{{ conversation.modified_at }}</p>
+              </li>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Inbox</strong> by Your Name. The source code is licensed
+        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+      </p>
+    </div>
+  </footer>
+
+{% endblock %}
+</body>
